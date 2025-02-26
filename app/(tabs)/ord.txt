@@ -104,7 +104,6 @@ aperi
 aphel
 aping
 apoge
-apogé
 april
 apsis
 areal
@@ -231,7 +230,6 @@ basun
 batak
 batch
 bauge
-baumé
 bause
 bauta
 baute
@@ -463,7 +461,6 @@ budøl
 bufar
 buffe
 buffo
-buffé
 bufre
 bugne
 buing
@@ -552,7 +549,6 @@ crazy
 credo
 crepe
 cross
-crêpe
 culpa
 curie
 curle
@@ -628,7 +624,6 @@ dette
 devon
 devot
 diare
-diaré
 didym
 diett
 digel
@@ -735,7 +730,6 @@ drøss
 drøye
 dubbe
 duble
-dublé
 duell
 duete
 duett
@@ -856,7 +850,6 @@ enske
 ensom
 enten
 entre
-entré
 envis
 enzym
 enøre
@@ -1075,7 +1068,6 @@ fnokk
 fnugg
 fnyse
 foaje
-foajé
 fokal
 fokus
 folat
@@ -1291,7 +1283,6 @@ gjøne
 gjøre
 gjørs
 glace
-glacé
 glafs
 glane
 glans
@@ -1904,7 +1895,6 @@ karma
 karpe
 karre
 karri
-karré
 karse
 karsk
 karte
@@ -2144,7 +2134,6 @@ kofte
 kogge
 kogle
 koine
-koiné
 koker
 kokke
 kokos
@@ -2252,7 +2241,6 @@ kubus
 kudos
 kufor
 kufte
-kufôr
 kuhud
 kuing
 kujon
@@ -2483,7 +2471,6 @@ livat
 liver
 livne
 livre
-livré
 ljome
 ljore
 ljuge
@@ -2717,7 +2704,6 @@ mjøle
 mjølk
 mjøll
 moare
-moaré
 mobbe
 mobil
 modal
@@ -2750,7 +2736,6 @@ morse
 morsk
 moset
 moske
-moské
 motiv
 motor
 motsi
@@ -3037,7 +3022,6 @@ party
 pasja
 pasje
 passe
-passé
 pasta
 pater
 patos
@@ -3234,10 +3218,8 @@ putre
 putte
 putto
 pygme
-pygmé
 pynte
 pyore
-pyoré
 pysen
 pyset
 pyton
@@ -3532,7 +3514,6 @@ saual
 sauna
 sause
 saute
-sauté
 savle
 savne
 scene
@@ -3589,7 +3570,6 @@ setre
 sette
 sevje
 sexus
-señor
 sfære
 shake
 shelf
@@ -3649,7 +3629,6 @@ sjefe
 sjeik
 sjekk
 sjete
-sjeté
 sjikt
 sjoge
 sjogs
@@ -3947,7 +3926,6 @@ snøvl
 snøye
 snøår
 soare
-soaré
 sobel
 sober
 sogne
@@ -3966,7 +3944,6 @@ sopen
 soper
 soppe
 sorbe
-sorbé
 sorry
 sorti
 soset
@@ -4462,7 +4439,6 @@ trafo
 trake
 trakk
 trakt
-traké
 trale
 trall
 tralt
@@ -4474,7 +4450,6 @@ trapp
 trase
 trask
 trass
-trasé
 traud
 trave
 treak
@@ -4510,9 +4485,7 @@ trist
 tritt
 trive
 trofe
-trofé
 troke
-troké
 troll
 trone
 trope
@@ -4563,7 +4536,6 @@ tunia
 tuppe
 turbo
 turne
-turné
 turve
 tusen
 tusje
@@ -4663,7 +4635,6 @@ ufora
 ufred
 ufset
 ufyse
-ufôra
 ufødt
 uføre
 ugagn
@@ -5058,7 +5029,6 @@ yucca
 zappe
 zloty
 zoome
-Äland
 ågrer
 åking
 åling
