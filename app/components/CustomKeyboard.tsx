@@ -1,66 +1,54 @@
 import { useFonts } from 'expo-font';
-import { View, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
-import { colorDefaultBG, colorDelete, colorSubmit } from '../constants';
+import { View, Text, TouchableOpacity, useWindowDimensions } from 'react-native'
+import { colorCorrectPos, colorDefaultBG, colorDelete, colorDisabled, colorInWord, colorSubmit } from '../../helpers/constants';
+import { Actions, GameState } from '@/helpers/GameState';
+import { Dispatch } from 'react';
 
 
 const DELETE = 'slett'
 const SUBMIT = 'gjett'
+const GAP = 3
 
 const keys = [
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å', ],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ø', 'æ', ],
-    [DELETE, 'z', 'x', 'c', 'v', 'b', 'n', 'm', SUBMIT],
+    [  DELETE, 'z', 'x', 'c', 'v', 'b', 'n', 'm', SUBMIT,   ],
 ];
 Object.freeze(keys);
 keys.forEach(innerArray => Object.freeze(innerArray));
-const keysInUpperRow = keys[0].length
 
 const CustomKeyboard = ({
-  disabledLetters,
-  onDeletePressed,
-  onLetterTyped,
-  onSubmitPressed,
-  viewWidth,
+  state,
+  dispatch,
 }: {
-    disabledLetters: string[];
-    onDeletePressed: () => void;
-    onLetterTyped: (key: string) => void;
-    onSubmitPressed: () => void;
-    viewWidth: number;
+  state: GameState,
+  dispatch: Dispatch<Actions>
 }) => {
 
   const [_] = useFonts({ComicNeueRegular: require('../../assets/fonts/ComicNeue-Regular.ttf')})
 
-  const Key = ({ keyName, }: { keyName: string, }) => {
-    const isEnabled = !(disabledLetters.includes(keyName))
-    const isDeleteKey = keyName === DELETE
-    const isSubmitKey = keyName === SUBMIT
+  const dimensions = useWindowDimensions()
+
+  const Key = (self: { keyName: string, }) => {
+    const isEnabled = !(state.knownLettersNotInWord.has(self.keyName))
+    const isDeleteKey = self.keyName === DELETE
+    const isSubmitKey = self.keyName === SUBMIT
     const isWideKey = isDeleteKey || isSubmitKey
 
     const handlePress =
-      isDeleteKey ? (_: GestureResponderEvent) => onDeletePressed() :
-      isSubmitKey ? (_: GestureResponderEvent) => onSubmitPressed() :
-      (_: GestureResponderEvent) => { if (isEnabled) onLetterTyped(keyName) }
+      isDeleteKey ? (_: any) => dispatch({type: "Delete"}) :
+      isSubmitKey ? (_: any) => dispatch({type: "Submit"}) :
+      (_: any) => { dispatch({type: "TypedLetter", payload: self.keyName} ) }
 
     const backgroundColor =
       isDeleteKey ? colorDelete :
-      isSubmitKey ? colorSubmit:
-      colorDefaultBG
+      isSubmitKey ? colorSubmit :
+      state.knownLettersInCorrectPositions.has(self.keyName) ? colorCorrectPos :
+      state.knownLettersInWord.has(self.keyName) ? colorInWord :
+      isEnabled ? colorDefaultBG:
+      colorDisabled ;
 
-    const margin = 2
-
-    const slimKeyWidth =
-      viewWidth / keysInUpperRow
-    - margin*2 / keysInUpperRow
-    - margin*2
-
-    const wideKeyWidth =
-      slimKeyWidth * 2
-    + margin * 2
-
-    const keyWidth = isWideKey ? wideKeyWidth : slimKeyWidth
-    const opacity = isEnabled ? 1 : 0
-    const keyHeight = slimKeyWidth * 2
+    const keyWidth = isWideKey ? 2 + 100 / dimensions.width : 1
 
     return (
       <TouchableOpacity
@@ -70,29 +58,35 @@ const CustomKeyboard = ({
           backgroundColor: backgroundColor,
           borderRadius: 5,
           borderWidth: 2,
-          height: keyHeight,
           justifyContent: 'center',
-          margin: margin,
-          opacity: opacity,
-          width: keyWidth,
+          flex: keyWidth,
         }}
       >
         <Text
           style={{
             fontFamily: "ComicNeueRegular",
-            fontSize: keyHeight / 3,
+            fontSize: 24,
           }}
-        >{keyName}</Text>
+        >{self.keyName}</Text>
       </TouchableOpacity>
     )
   }
 
 
   return (
-    <View style={{flexDirection: 'column'}} >
+    <View style={{
+      flexDirection: 'column',
+      flex: 1,
+      gap: GAP,
+      margin: GAP,
+    }} >
     {
       keys.map((row, i) => (
-        <View key={i} style={{flexDirection: 'row'}} >
+        <View key={i} style={{
+          flexDirection: 'row',
+          flex: 1,
+          gap: GAP,
+        }} >
         {
           row.map((char, j)=>(
             <Key

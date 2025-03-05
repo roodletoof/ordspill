@@ -1,93 +1,69 @@
 import { View, Text, ColorValue} from "react-native"
-import assert from "../debug/assert"
+import assert from "@/helpers/assert"
 import {useFonts} from 'expo-font'
-import { colorCorrectPos, colorDefaultBG, colorInWord } from "../constants"
+import { colorCorrectPos, colorDefaultBG, colorInWord } from "../../helpers/constants"
+import { GameState } from "@/helpers/GameState"
 
-const GuessView = ({
-  buffers,
-  currAttempt,
-  nAttempts,
-  nLetters,
-  viewWidth,
-  targetWord,
-}: {
-  buffers: Array<Array<string>>
-  currAttempt: number
-  nAttempts: number
-  nLetters: number
-  viewWidth: number
-  targetWord: string
-}) => {
-  assert(buffers.length === nAttempts, "nAttempts is wrong for given buffers");
-  buffers.forEach(
-    (buf) => assert(buf.length === nLetters, "nLetters is wrong for given buffers")
-  );
-  assert(targetWord.length === nLetters, "target word has wrong number of letters");
+const GAP = 3
+
+const GuessView = (self: { state: GameState }) => {
 
   const [_] = useFonts({ComicNeueBold: require('../../assets/fonts/ComicNeue-Bold.ttf')})
-  // TODO wait until the fonts are actually loaded
 
-  const Cell = ({
-    letter,
-    backgroundColor
-  }: {
+  const Cell = (self: {
     letter: string,
-    backgroundColor: ColorValue | undefined
+    backgroundColor: ColorValue | undefined,
+    highlight: boolean,
   }) => {
-    assert(letter.length === 1 || letter.length === 0, 'invallid letter length');
-
-    const margin = 2
-    const widthAndHeight =
-      viewWidth / nLetters
-    - margin*2 / nLetters
-    - margin*2
-
+    assert(self.letter.length === 1 || self.letter.length === 0, 'invallid letter length');
+    const borderColor = self.highlight ? "#000" : "#999"
     return (
       <View
         style={{
+          flex: 1,
           alignItems: 'center',
-          backgroundColor: backgroundColor,
+          backgroundColor: self.backgroundColor,
           borderRadius: 5,
           borderWidth: 2,
-          height: widthAndHeight,
+          borderColor: borderColor,
           justifyContent: 'center',
-          margin: margin,
-          width: widthAndHeight,
         }}
       >
         <Text
           style={{
             fontFamily: "ComicNeueBold",
-            fontSize: widthAndHeight / 2,
+            fontSize: 50,
           }}
-        >{letter}</Text>
+        >{self.letter}</Text>
       </View>
     )
   }
 
   return (
-    <View style={{ flexDirection: 'column' }}>
+    <View style={{ flexDirection: 'column', flex: 2, gap: GAP, margin: GAP }}>
     {
-      buffers.map((row, y) => (
-        <View key={y} style={{flexDirection: 'row'}}>
-        {
-          row.map((char, x)=>{
-            const isPastAttempt = y < currAttempt;
-            const isCharInWord = targetWord.includes(char);
-            const isCharInCorrectPosition = targetWord[x] === char;
-            const color =
-              isPastAttempt && isCharInCorrectPosition ? colorCorrectPos
-            : isPastAttempt && isCharInWord ? colorInWord
-            : colorDefaultBG;
+      self.state.buffers.map((row, y) => (
+        <View key={y} style={{flexDirection: 'row', flex: 1, gap: GAP}}>
+          {
+            row.map((char, x)=>{
+              const isPastAttempt = y < self.state.cursorRow;
+              const isCharInWord = self.state.targetWord.includes(char);
+              const isCharInCorrectPosition = self.state.targetWord[x] === char;
+              const color =
+                isPastAttempt && isCharInCorrectPosition ? colorCorrectPos
+              : isPastAttempt && isCharInWord ? colorInWord
+              : colorDefaultBG;
+              const highlight = y === self.state.cursorRow && x === self.state.cursorColumn;
 
-            return (
-              <Cell
-                backgroundColor={color}
-                key={x}
-                letter={char}
-              />)
-          })
-        }
+              return (
+                <Cell
+                  backgroundColor={color}
+                  key={x}
+                  letter={char}
+                  highlight={highlight}
+                />)
+            })
+          }
         </View>
       ))
     }
