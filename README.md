@@ -1,5 +1,13 @@
-# Ordspill
+# Privacy Policy
+Last Updated: Mon Mar 10 09:30:47 CET 2025
 
+This app does not collect, store, or share any personal data from users.
+
+We do not track, log, or analyze user activity.
+We do not use third-party analytics or advertising services.
+We do not sell or share user data with anyone.
+
+# Ordspill
 A norwegian word-guessing game inspired by Wordle.
 
 This is an [Expo](https://expo.dev) project created with
