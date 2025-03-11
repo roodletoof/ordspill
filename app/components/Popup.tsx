@@ -65,25 +65,28 @@ const Component = ( props: PopupProps ) => {
     props.close();
   };
   return (
-    <Modal
-      animationType="slide"
-      onRequestClose={handleClose}
-      visible={props.isOpen}
-    >
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: 'center',
-        }}
+    <View style={{flex: 0}}>
+      <Modal
+        animationType="fade"
+        onRequestClose={handleClose}
+        visible={props.isOpen}
       >
-        <Text
+        <View
           style={{
-            fontSize: 100,
+            alignItems: "center",
+            backgroundColor: "white",
+            flex: 1,
+            justifyContent: "center",
           }}
-        >{props.message}</Text>
-        <Button title={props.closeButtonText} onPress={handleClose}/>
-      </View>
-    </Modal>
+        >
+          <Text
+            style={{
+              fontSize: 100,
+            }}
+          >{props.message}</Text>
+          <Button title={props.closeButtonText} onPress={handleClose}/>
+        </View>
+      </Modal>
+    </View>
   )
 }
