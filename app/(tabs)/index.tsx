@@ -13,6 +13,9 @@ import Animated, {
 import { useEventEffect, useEventEffectWithPayload } from "@/helpers/event";
 import usePopup from "../components/Popup";
 
+// TODO: read
+// https://docs.expo.dev/versions/latest/sdk/sqlite/
+
 export default function Index() {
   const [state, dispatch] = useGameStateReducer();
 
