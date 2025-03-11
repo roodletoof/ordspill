@@ -1,4 +1,4 @@
-import { Button, View } from "react-native";
+import { Button, Linking, View } from "react-native";
 import CustomKeyboard from "../components/CustomKeyboard";
 import GuessView from "../components/GuessView";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -41,7 +41,12 @@ export default function Index() {
 
   const winPopup = usePopup({ message: "Riktig! 🎉", });
   const losePopup = usePopup({ message: "Feil ☹️", });
-  const answerPopup = usePopup({ message: state.targetWord });
+  const answerPopup = usePopup({
+    message: state.targetWord,
+    onTouchMessage: () => {
+      Linking.openURL(`https://ordbokene.no/nob/bm,nn/${state.targetWord}`)
+    }
+  });
 
   useEventEffectWithPayload(state.eventGameFinished, ({won}) => {
     if (won) winPopup.open();  

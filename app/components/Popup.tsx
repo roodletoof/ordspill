@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react";
-import { Modal, Text, View, Button } from "react-native";
+import { Modal, Text, View, Button, TouchableOpacity } from "react-native";
 
 const defaultOpts = {
   closeButtonText: "lukk",
   message: "",
   onClose: () => {},
   startOpen: false,
+  onTouchMessage: () => {},
 } as const;
 
 /**
@@ -27,6 +28,7 @@ export const usePopup = (opts: {
   message?: string;
   onClose?: () => void;
   startOpen?: boolean;
+  onTouchMessage?: () => void;
 }) => {
 
   const args = {...defaultOpts, ...opts};
@@ -42,6 +44,7 @@ export const usePopup = (opts: {
     isOpen,
     message: args.message,
     onClose,
+    onTouchMessage: args.onTouchMessage
   };
 
   return {
@@ -52,11 +55,12 @@ export const usePopup = (opts: {
 export default usePopup;
 
 export type PopupProps = {
-    closeButtonText: string;
-    message: string;
-    onClose: () => void;
-    isOpen: boolean;
-    close: () => void;
+  closeButtonText: string;
+  message: string;
+  onClose: () => void;
+  isOpen: boolean;
+  close: () => void;
+  onTouchMessage: () => void;
 }
 
 const Component = ( props: PopupProps ) => {
@@ -81,11 +85,13 @@ const Component = ( props: PopupProps ) => {
             justifyContent: "center",
           }}
         >
-          <Text
-            style={{
-              fontSize: 100,
-            }}
-          >{props.message}</Text>
+          <TouchableOpacity onPress={props.onTouchMessage}>
+            <Text
+              style={{
+                fontSize: 100,
+              }}
+            >{props.message}</Text>
+          </TouchableOpacity>
           <Button title={props.closeButtonText} onPress={handleClose}/>
         </View>
       </Modal>
