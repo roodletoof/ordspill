@@ -64,10 +64,12 @@ const Component = ( props: PopupProps ) => {
     props.onClose();
     props.close();
   };
+  // I need to wrap the Modal in a View. If I don't then the modal does not
+  // function as expected on android.
   return (
-    <View style={{flex: 0}}>
+    <View>
       <Modal
-        animationType="fade"
+        animationType="slide"
         onRequestClose={handleClose}
         visible={props.isOpen}
       >
